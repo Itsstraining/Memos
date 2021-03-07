@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
-import { NoteService } from 'src/app/services/note.service';
 
 @Component({
   selector: 'app-archive-page',
@@ -9,7 +8,7 @@ import { NoteService } from 'src/app/services/note.service';
 })
 export class ArchivePageComponent implements OnInit,OnDestroy {
 
-  constructor(public authSer:AuthService,public noteSer:NoteService) { }
+  constructor(public authSer:AuthService) { }
 
   ngOnInit(): void {
     this.authSer.checkLogin();

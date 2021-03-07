@@ -3,9 +3,9 @@
         <mat-icon aria-label="Side nav toggle icon">search</mat-icon>
     </button>
 
-    <input placeholder="Tìm kiếm" (keydown.enter)="check()" type="text" [(ngModel)]="value">
+    <input placeholder="Tìm kiếm" type="text" [(ngModel)]="value">
     <!--  -->
-    <button mat-button mat-icon-button aria-label="Clear" (click)="clearFiltter()" (click)="value=''">
+    <button mat-button mat-icon-button aria-label="Clear" (click)="value=''">
         <mat-icon>close</mat-icon>
     </button>
 

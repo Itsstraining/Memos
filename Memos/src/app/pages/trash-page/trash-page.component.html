@@ -6,17 +6,12 @@
         </div>
     </div>
 
-    <div class="noNotes"  *ngIf="this.noteServcies.checkTrashsPageIsEmpty()==true">
-        <mat-icon class="noNotesIco">delete_outline</mat-icon>
-        <span class="noNotesText">Thùng rác trống</span>
-    </div>
 
     <div class="grid" #gridLayout>
         <div>
             <div class="item-content">
                 <div>
-                    <app-note-trash [note]=note *ngFor="let note of noteServcies.getTrash ;let j = index">
-                    </app-note-trash>
+                    <app-note-trash [note]=note *ngFor="let note of noteServcies.getTrash ;let j = index"></app-note-trash>
                 </div>
             </div>
         </div>

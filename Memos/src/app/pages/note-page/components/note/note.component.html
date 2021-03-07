@@ -4,23 +4,16 @@
         <div class="noteItem unselectable">
             <div class="cardInfo">
                 <div style="display: flex;justify-content: flex-end;">
-                    <button style="width:auto; padding: 0px;" mat-menu-item class="myMenuItemRiple"
-                    mat-raised-button (click)="openDialog(note.id)">
+                    <button style="width:auto; padding: 0px;" mat-menu-item class="myMenuItemRiple" mat-raised-button
+                        (click)="openDialog(note.id)">
                         <mat-icon>share</mat-icon>
                     </button>
-                    
+
                     <button style="width:auto; padding: 0px;" mat-menu-item class="myMenuItemRiple"
                         (click)="noteFlag(note.id)">
                         <mat-icon>turned_in_not</mat-icon>
                     </button>
                 </div>
-
-
-
-
-
-
-
 
                 <!-- <input type="text" (keyup.enter)="addToShare(note.id,message.value)" #message> -->
 
@@ -28,8 +21,27 @@
                 <div class="cardImage">
                     <img [src]="note.imagePreview">
                 </div>
-                <h3 class="cardTitle">{{note.title}}</h3>
-                <p class="cardDescripion">{{note.description}}</p>
+                
+                <div class="fix-line-css">
+                    <h3 class="cardTitle">{{note.title}}</h3>
+                </div>
+
+                <!-- code là bấm hiện thị nội dung ẩn nếu dùng ? -->
+                <!-- <mat-accordion>
+                    <mat-expansion-panel hideToggle>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <h3 class="cardTitle">{{note.title}}</h3>
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <p class="cardDescripion">{{note.description}}</p>
+                    </mat-expansion-panel>
+                </mat-accordion> -->
+                <br>
+                <div class="fix-line-css">
+                    <p class="cardDescripion">{{note.description}}</p>
+                </div>
+                <br>
                 <div class="cardFooter" [ngClass]="{menuActive:menuActiveTrigger}">
                     <div class="noteMenuWrap">
 
@@ -57,7 +69,8 @@
                         <button mat-menu-item class="myMenuItem myMenuItemRiple" (click)="storeNote(note.id)">
                             <mat-icon>archive</mat-icon>
                         </button>
-                        <button mat-menu-item class="myMenuItem myMenuItemRiple" (click)="deleteNote(note.id,note.shareTo)">
+                        <button mat-menu-item class="myMenuItem myMenuItemRiple"
+                            (click)="deleteNote(note.id,note.shareTo)">
                             <mat-icon>delete</mat-icon>
                         </button>
 

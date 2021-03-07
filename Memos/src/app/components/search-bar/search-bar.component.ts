@@ -1,5 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy,OnChanges } from '@angular/core';
-import { NoteService } from 'src/app/services/note.service';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'app-search-bar',
@@ -7,21 +6,11 @@ import { NoteService } from 'src/app/services/note.service';
   styleUrls: ['./search-bar.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SearchBarComponent implements OnInit,OnChanges {
+export class SearchBarComponent implements OnInit {
   value:'';
-  constructor(public noteSer:NoteService) { }
+  constructor() { }
 
   ngOnInit(): void {
-  }
-  ngOnChanges():void {
-    
-  }
-  check(){
-    // console.log(this.value)
-    this.noteSer.search(this.value);
-  }
-  clearFiltter(){
-    this.noteSer.filter = [];
   }
 
 }
