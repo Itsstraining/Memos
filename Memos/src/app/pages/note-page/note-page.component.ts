@@ -4,6 +4,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AuthService } from 'src/app/services/auth.service';
 import { NoteService } from 'src/app/services/note.service';
 import { SharedService } from 'src/app/services/shared.service';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 @Component({
   selector: 'app-note-page',
@@ -11,7 +12,7 @@ import { SharedService } from 'src/app/services/shared.service';
   styleUrls: ['./note-page.component.scss']
 })
 export class NotePageComponent implements OnInit,OnChanges {
-
+  panelOpenState = false;
   constructor(public noteServcies: NoteService,
      public sharedSer: SharedService,
      public authSer:AuthService) { }

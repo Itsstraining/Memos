@@ -135,7 +135,8 @@
   }
     
   
-  
+ 
+
   //swap
   .container{
     width: 30%;
@@ -155,4 +156,12 @@
   
   .container:hover {
     background: radial-gradient(#f0f0f0, #f0f0d0) ;
+  }
+
+  .item-content {
+    text-transform: uppercase;
+  color:#5f6368;
+  font-family: 'Montserrat', sans-serif;
+  font-size:12px;
+  margin:40px 80px 10px;
   }

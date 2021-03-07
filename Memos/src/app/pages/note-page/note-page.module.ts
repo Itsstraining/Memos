@@ -25,7 +25,9 @@ import {NoteMenuComponent} from './components/note-menu/note-menu.component';
 import { NoteComponent } from './components/note/note.component';
 import { EditNoteModalComponent } from './components/note/edit-note-modal/edit-note-modal.component';
 import { NoteFlagComponent } from './components/note-flag/note-flag.component';
-import { NoteSharedComponent } from './components/note-shared/note-shared.component'
+import { NoteSharedComponent } from './components/note-shared/note-shared.component';
+import {MatExpansionModule} from '@angular/material/expansion';
+
 @NgModule({
   declarations: [NotePageComponent, NewNoteComponent, NoteEditBodyComponent,NoteMenuComponent, NoteComponent, EditNoteModalComponent, NoteFlagComponent, NoteSharedComponent],
   imports: [
@@ -45,7 +47,9 @@ import { NoteSharedComponent } from './components/note-shared/note-shared.compon
     MatMenuModule,
     FormsModule,
     MatDialogModule,
-    MatGridListModule
+    MatGridListModule,
+    MatExpansionModule
+    
   ]
 })
 export class NotePageModule { }
