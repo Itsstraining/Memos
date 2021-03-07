@@ -1,0 +1,32 @@
+<div class="container">
+    <div >
+        <div >
+            <form (ngSubmit)="register()">
+            <h3>Memos Register</h3>
+            <div >
+                <input type="email" name="email" class="form-control" [(ngModel)]="email" placeholder="Enter email Id" required>
+            </div>
+            
+            <div >
+                <input type="password" name="password" class="form-control" [(ngModel)]="password" placeholder="Enter Password"
+                    required>
+            </div>
+            <div >
+                <button type="submit" class="btn btn-primary">Register</button>
+                <div class="register"><a href="#" routerLink="/login">Back To Login</a></div>
+            </div>
+            </form>
+            <div >
+                <p *ngIf="errorMessage.length > 0" >
+                    {{errorMessage}}</p>
+                
+                <p *ngIf="error.message.length > 0" >
+                    {{error.message}} </p>
+
+                    <p *ngIf="message.length > 0" >
+                        {{message}} </p>
+            </div>
+        </div>
+
+    </div>
+</div>

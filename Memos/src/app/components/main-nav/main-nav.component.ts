@@ -7,6 +7,8 @@ import { AuthService } from 'src/app/services/auth.service';
 import { NoteService } from 'src/app/services/note.service';
 import { SharedService } from 'src/app/services/shared.service';
 import { CdkConnectedOverlay } from '@angular/cdk/overlay';
+import { Router } from '@angular/router'; 
+
 @Component({
   selector: 'app-main-nav',
   templateUrl: './main-nav.component.html',
@@ -16,8 +18,9 @@ export class MainNavComponent implements OnInit {
   typesOfShoes: string[] = ['Boots', 'Clogs', 'Loafers', 'Moccasins', 'Sneakers'];
   constructor(private noteSer: NoteService,
     private breakpointObserver: BreakpointObserver,
-    public auth: AuthService,
+    // public auth: AuthService,
     private shareSer: SharedService,
+    public authservice: AuthService, private router: Router
     ) {
 
   }
@@ -62,7 +65,7 @@ export class MainNavComponent implements OnInit {
     
   }
   logout(){
-    this.auth.signOut();
+    this.authservice.signOut();
     this.noteSer.deleteUserMail();
   }
 

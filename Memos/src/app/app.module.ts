@@ -1,6 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -23,12 +25,16 @@ import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { SearchBarComponent } from '../app/components/search-bar/search-bar.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { LoginComponent } from './pages/login/login.component';
+import { RegisterComponent } from './pages/register/register.component';
 @NgModule({
   declarations: [
     AppComponent,
     FooterComponent,
     MainNavComponent,
     SearchBarComponent,
+    LoginComponent,
+    RegisterComponent,
 
   ],
   imports: [
@@ -49,6 +55,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase, 'Memos'),
     AngularFireAuthModule,
+    AngularFireDatabaseModule
     
 
   ],
