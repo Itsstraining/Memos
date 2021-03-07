@@ -34,7 +34,7 @@ export class RegisterComponent implements OnInit {
       this.authservice.registerWithEmail(this.email, this.password)
         .then(() => {
           this.message = "you are register with data on firbase"
-          //this.router.navigate(['/userinfo'])
+          this.router.navigate(['/note-page'])
         }).catch(_error => {
           this.error = _error
           this.router.navigate(['/register'])
