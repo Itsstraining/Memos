@@ -1,5 +1,22 @@
 
-//new 
+.mat-form-field + .mat-form-field {
+    margin-left: 8px;
+  }
+  
+.fix-line-css{
+    width:100%;// chiều rộng bằng khối bao nó
+    white-space: pre-wrap; 
+    overflow: hidden; // ẩn các nội dung khi kích thước lớn hơn chiều rộng khối bên ngoài
+    text-overflow: ellipsis; //thêm 3 dấu chấm ở cuối
+    -webkit-line-clamp: 2;// số dòng muốn hiển thị
+    -webkit-box-orient: vertical;
+     display: -webkit-box;
+  }
+
+.fix-line-css:active {
+    overflow: visible; //Bấm hiện nội dung
+}
+
 .grid-item {
     float: left;
     width: 240px;
