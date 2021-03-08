@@ -6,21 +6,25 @@
 
             <div class="data">
                 <label>Email</label>
-                <input type="email" name="email" class="form-control" [(ngModel)]="email" placeholder="Enter email Id" required>
+                <input type="email" name="email" class="form-control" [(ngModel)]="email" placeholder="Enter email Id"
+                    required>
             </div>
 
             <div class="data">
                 <label>Password</label>
-                <input type="password" name="password" class="form-control" [(ngModel)]="password" placeholder="Enter Password" required>
+                <input type="password" name="password" class="form-control" [(ngModel)]="password"
+                    placeholder="Enter Password" required>
             </div>
 
             <div class="forgot-pass">
-                <a href="#">Forgot Password?</a>
+                <a *ngIf="!resetPassword && isValidMailFormat(email)" class="text-danger"
+                    (click)="sendResetEmail()">Forgot Password?</a>
+                <p *ngIf="resetPassword" class="text-success">Check your email to reset password!</p>
             </div>
 
             <div>
-                <div class="register">  Not a member? <a routerLink="/register">Register here</a></div>
-             </div>
+                <div class="register"> Not a member? <a routerLink="/register">Register here</a></div>
+            </div>
 
             <div class="form-group">
                 <p *ngIf="errorMessage.length > 0" style="color: red;">

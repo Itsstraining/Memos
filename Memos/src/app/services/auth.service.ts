@@ -5,6 +5,9 @@ import { UseExistingWebDriver } from 'protractor/built/driverProviders';
 import { observable, Observable } from 'rxjs';
 import * as firebase from 'firebase';
 import { NoteService } from './note.service';
+import 'firebase/auth'
+import { promise } from 'selenium-webdriver';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -12,49 +15,49 @@ export class AuthService {
   public user: firebase.default.UserInfo;
   public openNav: boolean;
   authState: any = null;
-  constructor(private auth: AngularFireAuth,private router: Router,private noteSer:NoteService) {
+  constructor(private auth: AngularFireAuth, private router: Router, private noteSer: NoteService) {
     this.auth.authState.subscribe((user) => {
       if (user) {
-        this.authState=user;
+        this.authState = user;
         this.user = user;
         this.noteSer.addUserMail(user.email);
         this.openNavBar();
         this.router.navigate(['note-page']);
-        
-        
-      }else{
+
+
+      } else {
         this.disableNavBar();
       }
     });
   }
-  checkLogin(){
+  checkLogin() {
     setTimeout(() => {
-      if(this.user==undefined){
+      if (this.user == undefined) {
         this.router.navigate(['sign-in']);
-      }else{
-        
+      } else {
+
       }
-    },500);
+    }, 500);
   }
 
 
-  openNavBar(){
-    this.openNav=true;
-    
+  openNavBar() {
+    this.openNav = true;
+
     return this.openNav;
   }
-  disableNavBar(){
-    this.openNav=false;
+  disableNavBar() {
+    this.openNav = false;
     return this.openNav;
   }
 
   login() {
     const provider = new firebase.default.auth.GoogleAuthProvider();
     try {
-      
+
       this.auth.signInWithPopup(provider);
 
-      
+
     }
     catch (err) {
       // alert("login failed");
@@ -85,7 +88,7 @@ export class AuthService {
     }
   }
 
-registerWithEmail(email: string, password: string) {
+  registerWithEmail(email: string, password: string) {
     return this.auth.createUserWithEmailAndPassword(email, password)
       .then((user) => {
         this.authState = user
@@ -96,10 +99,9 @@ registerWithEmail(email: string, password: string) {
       });
   }
 
-  
 
-  loginWithEmail(email: string, password: string)
-  {
+
+  loginWithEmail(email: string, password: string) {
     return this.auth.signInWithEmailAndPassword(email, password)
       .then((user) => {
         this.authState = user
@@ -110,6 +112,14 @@ registerWithEmail(email: string, password: string) {
       });
   }
 
+  resetPassword(email: string) {
+    return this.auth.sendPasswordResetEmail(email)
+      .then(() => console.log('sent Password Reset Email!'))
+      .catch((error) => {
+        console.log(error)
+        throw error
+      })
+  }
 
   signOut() {
     try {
@@ -123,7 +133,7 @@ registerWithEmail(email: string, password: string) {
       setTimeout(() => {
         window.location.reload();
       }, 10);
-      
+
     } catch (err) {
       // alert("Sigout failed");
 

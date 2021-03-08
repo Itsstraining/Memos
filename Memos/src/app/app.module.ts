@@ -23,6 +23,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { SearchBarComponent } from '../app/components/search-bar/search-bar.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,7 +51,6 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase, 'Memos'),
     AngularFireAuthModule,
-
 
   ],
   providers: [],

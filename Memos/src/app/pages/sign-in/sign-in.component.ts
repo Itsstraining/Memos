@@ -16,6 +16,8 @@ export class SignInComponent implements OnInit {
   errorMessage = ''; // validation error handle
   error: { name: string, message: string } = { name: '', message: '' }; // for firbase error handle
 
+  resetPassword = false;
+
 
   constructor(private authSer: AuthService, private router: Router) { }
 
@@ -68,6 +70,26 @@ export class SignInComponent implements OnInit {
   }
   login() {
     this.authSer.login();
+  }
+
+  isValidMailFormat(email: string) {
+    const EMAIL_REGEXP = /^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i;
+
+    if ((email.length === 0) && (!EMAIL_REGEXP.test(email))) {
+      return false;
+    }
+
+    return true;
+  }
+
+  sendResetEmail() {
+    this.clearErrorMessage()
+
+    this.authSer.resetPassword(this.email)
+      .then(() => this.resetPassword = true)
+      .catch(_error => {
+        this.error = _error
+      })
   }
 
   signOut() {

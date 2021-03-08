@@ -8,6 +8,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth'
 import {FormsModule} from '@angular/forms';
 
+
 @NgModule({
   declarations: [SignInComponent],
   imports: [
@@ -16,7 +17,6 @@ import {FormsModule} from '@angular/forms';
     FormsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
-
   ]
 })
 export class SignInModule { }
