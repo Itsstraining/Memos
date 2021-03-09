@@ -4,17 +4,17 @@
         <div class="noteItem unselectable">
             <div class="cardInfo">
 
-
-                <div class="cardImage">
-                    <img [src]="note.imagePreview">
+                <div (click)="openDialogContent(note)">
+                    <div class="cardImage">
+                        <img [src]="note.imagePreview">
+                    </div>
+                    <div class="fix-line-css">
+                        <h3 class="cardTitle">{{note.title}}</h3>
+                    </div>
+                    <div class="fix-line-css">
+                        <p class="cardDescripion">{{note.description}}</p>
+                    </div>
                 </div>
-                <div class="fix-line-css">
-                    <h3 class="cardTitle">{{note.title}}</h3>
-                </div>
-                <div class="fix-line-css">
-                    <p class="cardDescripion">{{note.description}}</p>
-                </div>
-
 
                 <div class="cardFooter">
                     <div class="noteMenuWrap">
@@ -36,12 +36,12 @@
                             </div>
                         </mat-menu>
 
-                        <!-- <button id="hide" mat-menu-item class="myMenuItem myMenuItemRiple" (click)="input.click()">
+                        <button id="hide" mat-menu-item class="myMenuItem myMenuItemRiple" (click)="input.click()">
                             <input #input nv-file-select type="file"
-                            (change)="upload($event,note.id,note.pin)"
+                            (change)="upload($event,note.id,note.shareFrom,note.shareTo)"
                                 accept="*.png.jpg" />
                             <mat-icon>insert_photo_outlined</mat-icon>
-                        </button> -->
+                        </button>
 
                     </div>
                 </div>

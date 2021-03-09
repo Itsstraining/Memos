@@ -64,6 +64,53 @@ app.put("/notes/id/update/color", (req, res) => {
 
 })
 
+app.put("/shared/id/update/title", (req, res) => {
+    let { id, update,shareFrom,shareTo } = req.body;
+    // console.log(shareTo)
+    (async () => {
+        try {
+            await admin.firestore().collection("user").doc(shareFrom).collection("notes").doc(id.toString()).update({ title: update });
+            await admin.firestore().collection("user").doc(shareTo).collection("sharedNote").doc(shareFrom).collection("notes").doc(id).update({title: update})
+            return res.status(200).send();
+        } catch (error) {
+            console.log(error);
+            return res.status(500).send(error);
+        }
+    })();
+
+})
+
+app.put("/shared/id/update/description", (req, res) => {
+    let { id, update,shareFrom,shareTo } = req.body;
+    // console.log(shareTo,shareFrom,id,update)
+    (async () => {
+        try {
+            await admin.firestore().collection("user").doc(shareFrom).collection("notes").doc(id.toString()).update({ description: update });
+            await admin.firestore().collection("user").doc(shareTo).collection("sharedNote").doc(shareFrom).collection("notes").doc(id).update({description: update})
+            return res.status(200).send();
+        } catch (error) {
+            console.log(error);
+            return res.status(500).send(error);
+        }
+    })();
+
+})
+
+app.put("/shared/id/update/both", (req, res) => {
+    let { id, update,update1,shareFrom,shareTo } = req.body;
+    // console.log(shareTo,shareFrom,id,update)
+    (async () => {
+        try {
+            await admin.firestore().collection("user").doc(shareFrom).collection("notes").doc(id.toString()).update({ title:update,description: update1 });
+            await admin.firestore().collection("user").doc(shareTo).collection("sharedNote").doc(shareFrom).collection("notes").doc(id).update({title:update,description: update1})
+            return res.status(200).send();
+        } catch (error) {
+            console.log(error);
+            return res.status(500).send(error);
+        }
+    })();
+
+})
 app.put("/notes/id/update/title", (req, res) => {
     let { id, update, user } = req.body;
 
@@ -117,6 +164,22 @@ app.put("/notes/id/update/img", (req, res) => {
             await admin.firestore().collection("user").doc(user1).collection("notes").doc(id.toString()).update({
                 imagePreview: img
             });
+            return res.status(200).send();
+        } catch (error) {
+            console.log(error);
+            return res.status(500).send(error);
+        }
+    })();
+
+
+})
+
+app.put("/shared/id/update/img", (req, res) => {
+    let { id, img, shareFrom,shareTo } = req.body;
+    (async () => {
+        try {
+            await admin.firestore().collection("user").doc(shareFrom).collection("notes").doc(id.toString()).update({ imagePreview: img });
+            await admin.firestore().collection("user").doc(shareTo).collection("sharedNote").doc(shareFrom).collection("notes").doc(id).update({imagePreview: img})
             return res.status(200).send();
         } catch (error) {
             console.log(error);

@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  endpoint:"http://192.168.31.104:8080/",
+  endpoint:"http://192.168.1.4:8080/",
   firebase: {
     apiKey: "AIzaSyCwDaRRTvpwvAgn9JGZ--QuAOv5za5FZ-A",
     authDomain: "memos-95257.firebaseapp.com",

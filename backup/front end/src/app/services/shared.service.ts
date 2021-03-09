@@ -1,6 +1,8 @@
-import { Injectable } from '@angular/core';
+import { Component, Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/storage';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { sample } from 'rxjs/operators';
 import { NoteService } from "./note.service"
@@ -23,7 +25,7 @@ export class SharedService {
     "#e2cba9",
     "#e9eaee",
   ];
-  constructor(private noteSer: NoteService, public fire: AngularFirestore, private fireData: AngularFireStorage) { }
+  constructor(private _snackBar: MatSnackBar,public dialog: MatDialog,private noteSer: NoteService, public fire: AngularFirestore, private fireData: AngularFireStorage) { }
   checkEmail(email: string) {
     let user1 = this.noteSer.getUserMail;
     let user = email;
@@ -66,15 +68,14 @@ export class SharedService {
     let currentUser = this.noteSer.getUserMail;
     let sharedUser = email;
     if (currentUser == sharedUser) {
-      console.log("same user!")
+        this.dialog.open(dialogSameUser);
     } else {
       let data: any;
-
       this.fire.collection("user").doc(sharedUser).valueChanges().subscribe((temp) => {
         data = temp;
 
         if (data == undefined) {
-          console.log("can't get shared");
+          this.dialog.open(dialogCantShare);
         } else {
           // console.log(data);
           let dataNote = this.noteSer.getNote(id)
@@ -87,6 +88,10 @@ export class SharedService {
 
           this.fire.collection("user").doc(sharedUser).collection("sharedNote").doc(currentUser).collection("notes").doc(dataNote.id).set(dataNote);
           this.fire.collection("user").doc(sharedUser).collection("sharedNote").doc(currentUser).set({ email: currentUser });
+          this.dialog.closeAll();
+          this._snackBar.openFromComponent(SnackBarShare, {
+            duration: 1 * 1000,
+          });
         }
       });
     }
@@ -131,3 +136,35 @@ export class SharedService {
   }
 
 }
+
+@Component({
+  selector: 'dialogSameUser',
+  templateUrl: 'dialogSameUser.html',
+})
+export class dialogSameUser {
+  constructor(public dialogRef: MatDialogRef<dialogSameUser>){}
+  close(){
+    this.dialogRef.close();
+  }
+  
+}
+
+@Component({
+  selector: 'dialogCantShare',
+  templateUrl: 'dialogCantShare.html',
+})
+export class dialogCantShare {
+  constructor(public dialogRef: MatDialogRef<dialogCantShare>){}
+  close(){
+    this.dialogRef.close();
+  }
+  
+}
+
+
+@Component({
+  selector: 'SnackBarShare',
+  templateUrl: 'SnackBarShare.html',
+
+})
+export class SnackBarShare {}

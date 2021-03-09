@@ -73,7 +73,7 @@
                         </mat-menu>
 
                         <button id="hide" matTooltip="Đăng hình" mat-menu-item class="myMenuItem myMenuItemRiple" (click)="input.click()">
-                            <input #input nv-file-select type="file" (change)="upload($event,note.id,note.pin)"
+                            <input #input nv-file-select type="file" (change)="upload($event,note.id,note.pin,note.shareFrom,note.shareTo)"
                                 accept="*.png.jpg" />
                             <mat-icon>insert_photo_outlined</mat-icon>
                         </button>

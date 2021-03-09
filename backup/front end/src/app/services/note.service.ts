@@ -115,6 +115,48 @@ export class NoteService implements OnInit {
         }
       });
   }
+  public changeImgURLShared(event, id, shareFrom,shareTo) {
+    let file = event.target.files[0];
+    let n = file.name;
+    let filePath = `RoomsImages/${n}`;
+    let fileRef = this.fireData.ref(filePath);
+    let task = this.fireData.upload(`RoomsImages/${n}`, file);
+    console.log(task);
+    task
+      .snapshotChanges()
+      .pipe(
+        finalize(() => {
+          this.downloadURL = fileRef.getDownloadURL();
+          this.downloadURL.subscribe(url => {
+            if (url) {
+              this.fb = url;
+            }
+            this.fb;
+            this.changeImgShared(id,this.fb,shareFrom,shareTo)
+            
+
+          });
+        })
+      )
+      .subscribe(url => {
+        if (url) {
+          // console.log(url);
+        }
+      });
+  }
+  public async changeImgShared(id, img: string, shareFrom,shareTo) {
+
+    let user1 = this.userMail;
+    let temp = {
+      id: id,
+      img: img,
+      shareFrom:shareFrom,
+      shareTo:shareTo
+    }
+    // console.log(temp);
+    await this.http.put(environment.endpoint + "shared/id/update/img", temp).toPromise();
+    
+  }
 
   addUserMail(email) {
     this.userMail = email;
@@ -300,6 +342,53 @@ export class NoteService implements OnInit {
       //change title in archives
     }
   }
+  public async updateTitileShared(id, update,shareFrom,sharedTo) {
+    let currentUser = this.userMail;
+    let temp = {
+      id:id,
+      update:update,
+      shareFrom:shareFrom,
+      shareTo:sharedTo
+    }
+    // console.log(temp);
+    // console.log(temp);
+  //change title in notes
+      await this.http.put(environment.endpoint + "shared/id/update/title", temp).toPromise();
+      // this.fire.collection("user").doc(currentUser).collection("notes").doc(id).update({ title: update });
+
+  }
+  public async updateDescriptionShared(id, update,shareFrom,sharedTo) {
+    let currentUser = this.userMail;
+    let temp = {
+      id:id,
+      update:update,
+      shareFrom:shareFrom,
+      shareTo:sharedTo
+    }
+
+    // console.log(temp);
+  //change title in notes
+      await this.http.put(environment.endpoint + "shared/id/update/description", temp).toPromise();
+      // this.fire.collection("user").doc(currentUser).collection("notes").doc(id).update({ title: update });
+
+  }
+  public async updateBothShared(id, update,update1,shareFrom,sharedTo) {
+    let currentUser = this.userMail;
+    
+    let temp = {
+      id:id,
+      update:update,
+      update1:update1,
+      shareFrom:shareFrom,
+      shareTo:sharedTo
+    }
+
+    // console.log(temp);
+  //change title in notes
+      await this.http.put(environment.endpoint + "shared/id/update/both", temp).toPromise();
+      // this.fire.collection("user").doc(currentUser).collection("notes").doc(id).update({ title: update });
+
+  }
   public async updateDescription(id, update, page) {
     let currentUser = this.userMail;
     let temp = {
@@ -416,14 +505,16 @@ export class NoteService implements OnInit {
     } else {
       this.fire.collection("user").doc(shareTo).collection("sharedNote").doc(user1).collection("notes").doc(id.toString()).delete();
     }
-    // let urlDelNotes = `${environment.endpoint}notes/id/delete?id=${id}`;
+    let urlDelNotes = `${environment.endpoint}notes/id/delete?id=${id}&user1=${user1}`;
     for (let i = 0; i < this.notes.length; i++) {
       if (this.notes[i].id == id) {
         // this.notes[i].pin = false;
-        this.fire.collection("user").doc(user1).collection("notes").doc(id.toString()).delete();
-        // this.http.delete(urlDelNotes).toPromise();
-        this.fire.collection("user").doc(user1).collection("trashs").doc(id.toString()).set(this.notes[i]);
-        // this.http.post(environment.endpoint + "trashs/create", this.notes[i]).toPromise();
+        this.notes[i].shareTo="";
+        // this.fire.collection("user").doc(user1).collection("notes").doc(id.toString()).delete();
+        await this.http.post(environment.endpoint + "trashs/create", this.notes[i]).toPromise();
+        await this.http.delete(urlDelNotes).toPromise();
+        // this.fire.collection("user").doc(user1).collection("trashs").doc(id.toString()).set(this.notes[i]);
+        
         this.openSnackBarDel();
       }
     }
@@ -692,7 +783,7 @@ export class NoteService implements OnInit {
     }
     if (shareTo == "") {
     } else {
-      // this.fire.collection("user").doc(shareTo).collection("sharedNote").doc(currentUser).collection("notes").doc(id).update({ color: color })
+      this.fire.collection("user").doc(shareTo).collection("sharedNote").doc(currentUser).collection("notes").doc(id).update({ color: color })
     }
     let user1 = this.userMail;
     switch (page) {

@@ -88,9 +88,13 @@ export class NoteComponent implements OnInit {
   }
   // Open modal note edit
 
-  upload(event: any, id, pin) {
-
-    this.noteServcies.changeImgURL(event, id, pin, "note");
+  upload(event: any, id, pin,shareFrom,shareTo) {
+    if(shareTo==""){
+      this.noteServcies.changeImgURL(event, id, pin, "note");
+    }else{
+      this.noteServcies.changeImgURLShared(event,id,shareFrom,shareTo)
+    }
+    
 
   }
 
@@ -125,7 +129,7 @@ export class DialogNote {
 
   addToShare(data, shareTo) {
     this.shareSer.checkEmailShared(data.id, shareTo);
-    this.dialogRef.close();
+    // this.dialogRef.close();
   }
 }
 
@@ -154,19 +158,37 @@ export class DialogContent {
   }
   UpdateContent() {
     if (this.updateTitile != undefined &&this.updateDescription==undefined) {
-      console.log("update title")
-      this.noteSer.updateTitile(this.data.id, this.updateTitile, 'notes')
-      this.dialogRef.close();
+      if(this.data.shareTo==""){
+        this.noteSer.updateTitile(this.data.id, this.updateTitile, 'notes')
+        this.dialogRef.close();
+      }else{
+        // console.log(this.data.shareTo)
+        this.noteSer.updateTitileShared(this.data.id,this.updateTitile,this.data.shareFrom,this.data.shareTo)
+        this.dialogRef.close();
+      }
+      
     } else if (this.updateDescription != undefined &&this.updateTitile==undefined) {
-      console.log("update descript")
-      this.noteSer.updateDescription(this.data.id, this.updateDescription, 'notes')
-      this.dialogRef.close();
+      // console.log("update descript")
+      if(this.data.shareTo==""){
+        this.noteSer.updateDescription(this.data.id, this.updateDescription, 'notes')
+        this.dialogRef.close();
+      }else{
+        this.noteSer.updateDescriptionShared(this.data.id,this.updateDescription,this.data.shareFrom,this.data.shareTo)
+        this.dialogRef.close();
+      }
+      
     } else if (this.updateTitile == undefined && this.updateDescription == undefined) {
       this.dialogRef.close();
     } else{
-      console.log('update both');
-      this.noteSer.updateBoth(this.data.id, this.updateTitile, this.updateDescription, 'notes')
-      this.dialogRef.close();
+      // console.log('update both');
+      if(this.data.shareTo==""){
+        this.noteSer.updateBoth(this.data.id, this.updateTitile, this.updateDescription, 'notes')
+        this.dialogRef.close();
+      }else{
+        this.noteSer.updateBothShared(this.data.id, this.updateTitile, this.updateDescription, this.data.shareFrom,this.data.shareTo)
+        this.dialogRef.close();
+      }
+      
     }
   }
 
